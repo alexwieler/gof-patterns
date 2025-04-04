@@ -1,0 +1,26 @@
+[
+    {
+      "id": "singleton",
+      "nombre": "Singleton",
+      "categoria": "Creacional",
+      "intencion": "Garantiza que una clase tenga una única instancia y proporciona un punto de acceso global a ella.",
+      "aplicabilidad": "Cuando se requiere exactamente una instancia de una clase.",
+      "descripcion": "Permite controlar el número de instancias evitando múltiples objetos.",
+      "umlImagen": "assets/uml/singleton.png",
+      "ejemploLibro": {
+        "descripcion": "Ejemplo del libro GoF con un logger.",
+        "githubUrl": "https://github.com/tu_usuario/patrones-gof/singleton-libro",
+        "zipPath": "assets/zips/singleton-libro.zip"
+      },
+      "ejemploExtra": {
+        "titulo": "Uso en configuración global",
+        "descripcion": "Clase Config como singleton para centralizar ajustes.",
+        "fragmentosCodigo": [
+          "class Config {\n  private static instance: Config;\n  private constructor() {}\n  public static getInstance() {\n    if (!Config.instance) Config.instance = new Config();\n    return Config.instance;\n  }\n}"
+        ]
+      },
+      "ejercicio": {
+        "enunciado": "Diseñar un sistema de logging donde debe existir un único servicio que registre eventos del sistema."
+      }
+    }
+  ]
