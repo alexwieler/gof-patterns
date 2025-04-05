@@ -1,5 +1,7 @@
-<div class="patron-card">
+<a [routerLink]="['/patron', patron.id]">
+  <div class="patron-card">
     <h3>{{ patron.nombre }}</h3>
-    <span class="categoria">{{ patron.categoria }}</span>
+    <span>{{ patron.categoria }}</span>
     <p>{{ patron.intencion }}</p>
   </div>
+</a>

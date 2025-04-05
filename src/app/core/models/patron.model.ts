@@ -18,6 +18,7 @@ export interface PatronGoF {
     };
     ejercicio: {
       enunciado: string;
+      codigoBase: string;
       patronesRelacionados?: string[];
     };
   }

@@ -1,1 +1,36 @@
-<p>detalle-patron works!</p>
+<div *ngIf="patron">
+    <h1>{{ patron.nombre }}</h1>
+    <span>{{ patron.categoria }}</span>
+  
+    <h3>Intención</h3>
+    <p>{{ patron.intencion }}</p>
+  
+    <h3>Aplicabilidad</h3>
+    <p>{{ patron.aplicabilidad }}</p>
+  
+    <h3>Descripción</h3>
+    <p>{{ patron.descripcion }}</p>
+  
+    <h3>UML</h3>
+    <img [src]="patron.umlImagen" alt="UML del patrón" style="max-width: 100%;"/>
+  
+    <h3>Ejemplo del libro</h3>
+    <p>{{ patron.ejemploLibro.descripcion }}</p>
+    <a [href]="patron.ejemploLibro.githubUrl" target="_blank">Ver en GitHub</a>
+    <a [href]="patron.ejemploLibro.zipPath" download>⬇️ Descargar ZIP</a>
+  
+    <h3>Ejemplo adicional</h3>
+    <h4>{{ patron.ejemploExtra.titulo }}</h4>
+    <p>{{ patron.ejemploExtra.descripcion }}</p>
+    <pre *ngFor="let fragmento of patron.ejemploExtra.fragmentosCodigo">
+  {{ fragmento }}
+    </pre>
+  
+    <h3>Ejercicio</h3>
+    <p>{{ patron.ejercicio.enunciado }}</p>
+
+    <h3>Área de trabajo interactiva</h3>
+  <app-interactive-workspace
+    [patron]="patron">
+  </app-interactive-workspace>
+  </div>

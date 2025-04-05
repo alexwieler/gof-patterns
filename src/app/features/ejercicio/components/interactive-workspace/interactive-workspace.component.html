@@ -1,0 +1,10 @@
+<section *ngIf="patron">
+  <app-instruction-panel [enunciado]="patron.ejercicio.enunciado || ''"></app-instruction-panel>
+
+  <app-code-editor
+    [initialCode]="patron.ejercicio.codigoBase || ''"
+    (codeChange)="onCodeChange($event)">
+  </app-code-editor>
+
+  <app-uml-workspace [code]="code"></app-uml-workspace>
+</section>
