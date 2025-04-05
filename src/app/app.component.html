@@ -1,3 +1,22 @@
-<h1>Welcome to {{ title }}!</h1>
-<app-lista-patrones></app-lista-patrones>
 <router-outlet />
+<div class="app-container">
+  <aside class="sidebar">
+    <h2>Filters</h2>
+    <div class="filter-group">
+      <h4>Tipo</h4>
+      <div class="tags">
+        <button (click)="seleccionarTipo('')">Todos</button>
+        <button (click)="seleccionarTipo('Creacional')">Creacional</button>
+        <button (click)="seleccionarTipo('Estructural')">Estructural</button>
+        <button (click)="seleccionarTipo('Comportamiento')">De comportamiento</button>
+      </div>
+    </div>
+  </aside>
+
+  <main class="content">
+    <h1 class="main-title">Patrones</h1>
+    <app-lista-patrones [tipoSeleccionado]="tipoSeleccionado"></app-lista-patrones>
+  </main>
+</div>
+
+

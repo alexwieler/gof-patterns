@@ -1,5 +1,14 @@
-<div class="contenedor-patrones">
-    <div *ngFor="let patron of patrones">
-      <app-patron-card [patron]="patron"></app-patron-card>
-    </div>
+<div style="margin-bottom: 1rem;">
+  <input
+    type="text"
+    placeholder="Buscar patrón..."
+    [(ngModel)]="filtroTexto"
+    (ngModelChange)="aplicarFiltros()"
+    style="margin-right: 1rem;"
+  />
+</div>
+<div class="contenedor-patrones" style="display: grid; grid-template-columns: repeat(3, 400px); justify-content: center; gap: 2rem; padding: 2rem;">
+  <div style="width: 400px; height: 750px;" *ngFor="let patron of patronesFiltrados">
+    <app-patron-card [patron]="patron"></app-patron-card>
   </div>
+</div>

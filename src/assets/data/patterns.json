@@ -6,7 +6,8 @@
       "intencion": "Garantiza que una clase tenga una única instancia y proporciona un punto de acceso global a ella.",
       "aplicabilidad": "Cuando se requiere exactamente una instancia de una clase.",
       "descripcion": "Permite controlar el número de instancias evitando múltiples objetos.",
-      "umlImagen": "assets/uml/singleton.png",
+      "umlGofUrl": "https://viewer.diagrams.net/?tags=%7B%7D&lightbox=1&target=self&highlight=0000ff&edit=_blank&layers=1&nav=1&title=singleton.drawio&dark=auto#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Falexwieler%2Fgof-patterns%2Fmain%2Fsrc%2Fassets%2Fuml%2Fsingleton.drawio",
+      "imagenGofUrl": "assets/images/patrones/singleton.png",
       "ejemploLibro": {
         "descripcion": "Ejemplo del libro GoF con un logger.",
         "githubUrl": "https://github.com/tu_usuario/patrones-gof/singleton-libro",
@@ -15,12 +16,201 @@
       "ejemploExtra": {
         "titulo": "Uso en configuración global",
         "descripcion": "Clase Config como singleton para centralizar ajustes.",
+        "umlEjemploUrl": "https://viewer.diagrams.net/?tags=%7B%7D&lightbox=1&target=self&highlight=0000ff&edit=_blank&layers=1&nav=1&title=singleton-ejemplo.drawio&dark=auto#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Falexwieler%2Fgof-patterns%2Fmain%2Fsrc%2Fassets%2Fuml%2Fsingleton-ejemplo.drawio",
         "fragmentosCodigo": [
           "class Config {\n  private static instance: Config;\n  private constructor() {}\n  public static getInstance() {\n    if (!Config.instance) Config.instance = new Config();\n    return Config.instance;\n  }\n}"
         ]
       },
       "ejercicio": {
-        "enunciado": "Diseñar un sistema de logging donde debe existir un único servicio que registre eventos del sistema."
+        "enunciado": "Diseñar un sistema de logging donde debe existir un único servicio que registre eventos del sistema.",
+        "codigoBase": "public class Logger {\n    private static Logger instance;\n    private Logger() {}\n    public static Logger getInstance() {\n        if (instance == null) instance = new Logger();\n        return instance;\n    }\n}"
       }
+    },
+    {
+      "id": "adapter",
+      "nombre": "Adapter",
+      "categoria": "Estructural",
+      "intencion": "Permite que interfaces incompatibles cooperen envolviendo una clase existente con una nueva interfaz.",
+      "aplicabilidad": "Cuando se quiere usar una clase existente pero su interfaz no coincide con la requerida.",
+      "descripcion": "Convierte la interfaz de una clase en otra que los clientes esperan.",
+      "umlGofUrl": "https://viewer.diagrams.net/?tags=%7B%7D&lightbox=1&target=self&highlight=0000ff&edit=_blank&layers=1&nav=1&title=Adapter.drawio&dark=auto#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Falexwieler%2Fgof-patterns%2Fmain%2Fsrc%2Fassets%2Fuml%2FAdapter.drawio",
+      "imagenGofUrl": "assets/images/patrones/adapter.png",
+      "ejemploLibro": {
+        "descripcion": "Ejemplo del libro GoF con adaptadores de objetos.",
+        "githubUrl": "https://github.com/tu_usuario/patrones-gof/adapter-libro",
+        "zipPath": "assets/zips/adapter-libro.zip"
+      },
+      "ejemploExtra": {
+        "titulo": "Uso de Adapter con sistema de pagos",
+        "descripcion": "Adaptar una interfaz de pasarela de pagos antigua a una nueva.",
+        "umlEjemploUrl": "https://viewer.diagrams.net/?tags=%7B%7D&lightbox=1&target=self&highlight=0000ff&edit=_blank&layers=1&nav=1&title=Adapter.drawio&dark=auto#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Falexwieler%2Fgof-patterns%2Fmain%2Fsrc%2Fassets%2Fuml%2FAdapter.drawio",
+        "fragmentosCodigo": [
+          "public interface INuevaPasarela {\n    void ProcesarPago(decimal monto);\n}\n\npublic class PasarelaAntigua {\n    public void RealizarPago(double cantidad) {\n        Console.WriteLine(\"Pago realizado: \" + cantidad);\n    }\n}\n\npublic class AdaptadorPasarela : INuevaPasarela {\n    private PasarelaAntigua antigua;\n    public AdaptadorPasarela(PasarelaAntigua antigua) {\n        this.antigua = antigua;\n    }\n    public void ProcesarPago(decimal monto) {\n        antigua.RealizarPago((double)monto);\n    }\n}"
+        ]
+      },
+      "motivacion": "Permite utilizar clases existentes sin modificarlas, adaptándolas a nuevas interfaces. Por ejemplo, integrar una API antigua con un nuevo sistema.",
+      "notasDocente": [
+        "Este patrón se presta muy bien para comparar Adapter de clase vs Adapter de objeto.",
+        "Ideal mostrar primero cómo fallaría sin el patrón y luego introducirlo.",
+        "Hacer énfasis en la pérdida de flexibilidad si se adapta directamente sin abstracción."
+      ],
+      "ejercicio": {
+        "enunciado": "Tenés un sistema de impresoras antiguas y querés adaptarlo a una interfaz moderna. Diseñá las clases necesarias.",
+        "codigoBase": "public interface IImpresoraModerna {\n    void ImprimirDocumento(string contenido);\n}\n\npublic class ImpresoraVieja {\n    public void Imprimir(string texto) {\n        Console.WriteLine(\"Imprimiendo: \" + texto);\n    }\n}"
+      }
+    },
+    {
+      "id": "composite",
+      "nombre": "Composite",
+      "categoria": "Estructural",
+      "intencion": "Queremos mantener y tratar objetos simples y compuestos de forma uniforme.",
+      "aplicabilidad": "Cuando se necesita manipular estructuras jerárquicas como árboles. Ejemplo: carpetas que contienen archivos o subcarpetas.",
+      "descripcion": "Permite componer objetos en estructuras de árbol y tratar objetos individuales y compuestos de forma uniforme.",
+      "motivacion": "Permite manipular jerarquías de objetos sin necesidad de distinguir entre objetos simples y compuestos.",
+      "notasDocente": [
+        "Enfatizar transparencia vs seguridad en el diseño de Component vs Leaf.",
+        "Mostrar cómo agregar un hijo a un Leaf causa problemas si no está bien diseñado.",
+        "Buen ejemplo para representar estructuras como sistemas de archivos o documentos compuestos."
+      ]
+    },
+    {
+      "id": "visitor",
+      "nombre": "Visitor",
+      "categoria": "Comportamiento",
+      "intencion": "Representar una operación que se aplica sobre los elementos de una jerarquía de objetos sin modificar sus clases.",
+      "aplicabilidad": "Cuando se desea agregar funcionalidades a una jerarquía sin modificar sus clases.",
+      "descripcion": "Permite definir nuevas operaciones sobre una jerarquía de clases sin cambiar las clases sobre las que opera.",
+      "motivacion": "Separar algoritmos de las estructuras de datos sobre las que operan, aumentando la cohesión.",
+      "notasDocente": [
+        "Útil cuando se necesita mantener el principio de responsabilidad única (SRP).",
+        "Buen ejemplo con generación de reportes XML o JSON.",
+        "Cuidado con la dificultad de agregar nuevas clases en la jerarquía."
+      ]
+    },
+    {
+      "id": "factory-method",
+      "nombre": "Factory Method",
+      "categoria": "Creacional",
+      "intencion": "Proveer una interfaz para crear objetos en una jerarquía, delegando a las subclases la decisión de qué instancia concreta crear.",
+      "aplicabilidad": "Cuando una clase no puede anticipar qué tipo de objetos debe crear o cuando se quiere delegar esta responsabilidad.",
+      "descripcion": "Define una interfaz para crear un objeto, pero deja que las subclases decidan qué clase instanciar.",
+      "motivacion": "Evita acoplar el código cliente con clases concretas y centraliza la lógica de creación.",
+      "notasDocente": [
+        "Comparar Factory Method con el uso de condicionales (if/else o switch) en el código.",
+        "Buen ejemplo con creación de tipos de Funcionario en universidades.",
+        "Mostrar beneficios como cacheo de instancias y nombramiento de métodos más claros."
+      ]
+    },
+    {
+      "id": "abstract-factory",
+      "nombre": "Abstract Factory",
+      "categoria": "Creacional",
+      "intencion": "Permitir la creación de familias de objetos relacionados sin especificar sus clases concretas.",
+      "aplicabilidad": "Cuando un sistema debe ser independiente de cómo se crean, componen y representan sus productos.",
+      "descripcion": "Proporciona una interfaz para crear familias de objetos relacionados sin tener que conocer sus clases concretas.",
+      "motivacion": "Asegurar que se utilicen objetos de una misma familia. Ejemplo: UI coherente entre Windows y Mac.",
+      "notasDocente": [
+        "Comparar con Factory Method: este maneja múltiples productos.",
+        "Ejemplo claro: componentes de interfaz gráfica como botones y cajas de texto para distintos sistemas operativos.",
+        "Fomentar consistencia entre familias de productos."
+      ]
+    },
+    {
+      "id": "observer",
+      "nombre": "Observer",
+      "categoria": "Comportamiento",
+      "intencion": "Definir una relación 1 a N entre objetos, de modo que cuando uno cambie su estado, todos sus dependientes sean notificados.",
+      "aplicabilidad": "Cuando un cambio en un objeto requiere actualizar otros objetos, pero sin acoplarse entre sí.",
+      "descripcion": "Permite que un objeto notifique cambios a múltiples observadores automáticamente.",
+      "motivacion": "Bajo acoplamiento y posibilidad de establecer relaciones dinámicas entre objetos.",
+      "notasDocente": [
+        "Ejemplo clásico: stock de supermercado y múltiples sistemas interesados.",
+        "Desacoplamiento mediante interfaces y suscripción a eventos.",
+        "Mencionar desventajas como el orden aleatorio de notificaciones y eventos no relevantes para todos los suscriptores."
+      ]
+    },
+    {
+      "id": "builder",
+      "nombre": "Builder",
+      "categoria": "Creacional",
+      "intencion": "Separar la construcción de un objeto complejo de su representación para que el mismo proceso de construcción pueda crear diferentes representaciones.",
+      "aplicabilidad": "Cuando la creación de un objeto complejo debe permitir diferentes representaciones o cuando el proceso de construcción debe estar separado de la estructura del objeto.",
+      "descripcion": "Encapsula la construcción de un objeto paso a paso, permitiendo construir diferentes representaciones del objeto.",
+      "motivacion": "Evita un constructor telescópico o inicialización confusa y permite construir objetos paso a paso.",
+      "notasDocente": [
+        "Comparar con Abstract Factory: Builder construye paso a paso, mientras Abstract Factory crea productos relacionados de forma inmediata.",
+        "Buen ejemplo con armado de documentos complejos, como formularios o reportes.",
+        "Enfatizar separación entre el proceso de construcción y el objeto final."
+      ]
+    },
+    {
+      "id": "facade",
+      "nombre": "Facade",
+      "categoria": "Estructural",
+      "intencion": "Proporcionar una interfaz unificada para un conjunto de interfaces en un subsistema.",
+      "aplicabilidad": "Cuando se desea simplificar el acceso a un sistema complejo o desacoplar subsistemas.",
+      "descripcion": "El patrón Facade oculta la complejidad del sistema proporcionando una interfaz más sencilla.",
+      "motivacion": "Reducir el acoplamiento entre clientes y subsistemas complejos, facilitando su uso.",
+      "notasDocente": [
+        "Ideal para mostrar la ventaja de encapsular la complejidad.",
+        "Buen punto de partida para sistemas con muchas dependencias internas.",
+        "Comparar antes y después del uso del patrón para visualizar su impacto."
+      ]
+    },
+    {
+      "id": "proxy",
+      "nombre": "Proxy",
+      "categoria": "Estructural",
+      "intencion": "Proveer un sustituto o representante de otro objeto para controlar el acceso a este.",
+      "aplicabilidad": "Cuando se quiere controlar el acceso a un objeto, añadir funcionalidades o retrasar su carga.",
+      "descripcion": "El patrón Proxy actúa como un intermediario para controlar el acceso a un objeto real.",
+      "motivacion": "Permite optimizar, proteger o registrar el acceso al objeto real sin cambiar su implementación.",
+      "notasDocente": [
+        "Comparar los diferentes tipos: virtual, remoto y de protección.",
+        "Excelente para introducir el patrón Decorator por similitud de estructura.",
+        "Mostrar cómo puede evitar la creación costosa de objetos hasta que sean necesarios."
+      ]
+    },
+    {
+      "id": "state",
+      "nombre": "State",
+      "categoria": "Comportamiento",
+      "intencion": "Permitir a un objeto modificar su comportamiento cuando cambia su estado interno.",
+      "aplicabilidad": "Cuando el comportamiento de un objeto depende de su estado, y necesita cambiar en tiempo de ejecución.",
+      "descripcion": "Encapsula cada estado como una clase separada y delega el comportamiento al objeto correspondiente.",
+      "motivacion": "Elimina condicionales extensos relacionados con estados y promueve el principio de responsabilidad única.",
+      "notasDocente": [
+        "Mostrar máquina de estados como ejemplo ideal (como cajero automático, semáforo).",
+        "Comparar con Strategy por estructura similar pero diferente motivación.",
+        "Útil para desacoplar lógica condicional del flujo principal de clases."
+      ]
+    },
+    {
+      "id": "strategy",
+      "nombre": "Strategy",
+      "categoria": "Comportamiento",
+      "intencion": "Definir una familia de algoritmos, encapsular cada uno y hacerlos intercambiables.",
+      "aplicabilidad": "Cuando se tienen múltiples variantes de un algoritmo y se desea cambiar dinámicamente el comportamiento de un objeto.",
+      "descripcion": "Permite seleccionar un algoritmo en tiempo de ejecución sin modificar el objeto que lo utiliza.",
+      "motivacion": "Evita estructuras de control condicional para elegir comportamientos; promueve composición sobre herencia.",
+      "notasDocente": [
+        "Ideal para aplicar el principio de abierto/cerrado.",
+        "Buen ejemplo con cálculo de rutas o estrategias de pago.",
+        "Comparar con State: Strategy cambia algoritmos, State cambia comportamientos de acuerdo al estado."
+      ]
+    },
+    {
+      "id": "template-method",
+      "nombre": "Template Method",
+      "categoria": "Comportamiento",
+      "intencion": "Definir el esqueleto de un algoritmo en una operación, delegando algunos pasos a las subclases.",
+      "aplicabilidad": "Cuando varias clases comparten la misma estructura de algoritmo pero difieren en algunos pasos.",
+      "descripcion": "Permite definir el flujo general de una operación dejando algunos pasos como métodos abstractos.",
+      "motivacion": "Evita duplicación de código y centraliza el control del flujo de un algoritmo común.",
+      "notasDocente": [
+        "Excelente para procesos con pasos fijos y otros variables.",
+        "Comparar con Strategy: Template controla el flujo, Strategy delega el comportamiento.",
+        "Ejemplo típico: generación de reportes o carga de archivos."
+      ]
     }
-  ]
+]

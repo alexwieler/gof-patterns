@@ -10,5 +10,9 @@ import { ListaPatronesComponent } from './features/patrones/components/lista-pat
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'gof-patterns-explorer';
+  tipoSeleccionado: string = '';
+
+  seleccionarTipo(tipo: string) {
+    this.tipoSeleccionado = tipo;
+  }
 }

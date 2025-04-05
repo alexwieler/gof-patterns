@@ -1,4 +1,6 @@
-<div *ngIf="patron">
+<div class="detalle-patron-container">
+  <button (click)="volver()" class="btn-volver">⬅ Volver</button>
+  <div *ngIf="patron">
     <h1>{{ patron.nombre }}</h1>
     <span>{{ patron.categoria }}</span>
   
@@ -11,8 +13,14 @@
     <h3>Descripción</h3>
     <p>{{ patron.descripcion }}</p>
   
-    <h3>UML</h3>
-    <img [src]="patron.umlImagen" alt="UML del patrón" style="max-width: 100%;"/>
+    <h3>UML (GoF)</h3>
+    <iframe *ngIf="patron.umlGofUrl"
+            [src]="patron.umlGofUrl | safeUrl"
+            width="100%"
+            height="500"
+            frameborder="0"
+            allowfullscreen>
+    </iframe>
   
     <h3>Ejemplo del libro</h3>
     <p>{{ patron.ejemploLibro.descripcion }}</p>
@@ -25,12 +33,16 @@
     <pre *ngFor="let fragmento of patron.ejemploExtra.fragmentosCodigo">
   {{ fragmento }}
     </pre>
+    <h4>Diagrama del ejemplo</h4>
+    <iframe *ngIf="patron.ejemploExtra.umlEjemploUrl"
+            [src]="patron.ejemploExtra.umlEjemploUrl | safeUrl"
+            width="100%"
+            height="500"
+            frameborder="0"
+            allowfullscreen>
+    </iframe>
   
     <h3>Ejercicio</h3>
     <p>{{ patron.ejercicio.enunciado }}</p>
-
-    <h3>Área de trabajo interactiva</h3>
-  <app-interactive-workspace
-    [patron]="patron">
-  </app-interactive-workspace>
+</div>
   </div>

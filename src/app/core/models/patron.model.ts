@@ -5,7 +5,9 @@ export interface PatronGoF {
     intencion: string;
     aplicabilidad: string;
     descripcion: string;
-    umlImagen: string;
+    motivacion: string;
+    umlGofUrl: string;
+    imagenGofUrl: string;
     ejemploLibro: {
       descripcion: string;
       githubUrl: string;
@@ -14,6 +16,7 @@ export interface PatronGoF {
     ejemploExtra: {
       titulo: string;
       descripcion: string;
+      umlEjemploUrl?: string;
       fragmentosCodigo?: string[];
     };
     ejercicio: {
@@ -21,4 +24,5 @@ export interface PatronGoF {
       codigoBase: string;
       patronesRelacionados?: string[];
     };
-  }
+    notasDocente?: string[];
+}
